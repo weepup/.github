@@ -2,9 +2,8 @@ name: Fetch QQQ Google News
 
 on:
   schedule:
-    # 国际时间整点运行（对应北京时间每小时的整点）
-    - cron: '0 * * * *'
-  workflow_dispatch: # 允许你在网页上手动点击立即运行测试
+    - cron: '0 * * * *' # 每小时运行一次
+  workflow_dispatch: # 支持手动点击运行
 
 jobs:
   check-news:
@@ -23,6 +22,5 @@ jobs:
 
       - name: 运行监控脚本
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SERVER_KEY: ${{ secrets.SERVER_KEY }} # 引入刚刚在 GitHub 设置的密钥
         run: python fetch_news.py
